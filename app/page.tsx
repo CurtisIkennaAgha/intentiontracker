@@ -1,4 +1,7 @@
 export default function Home() {
+    // Example: how to use Supabase client
+    // import { supabase } from '../lib/supabaseClient';
+    // const { data, error } = await supabase.from('your_table').select('*');
   return (
     <>
       <style>{`
@@ -79,16 +82,44 @@ export default function Home() {
           >
             What is your intention?
           </div>
-          <input
-            type="text"
-            placeholder="Type your intention..."
-            className="w-[340px] max-w-full px-5 py-3 text-lg bg-black/60 text-white border-2 border-white rounded-xl outline-none focus:border-white focus:ring-2 focus:ring-white/80 shadow-lg transition-all duration-200"
-            style={{
-              boxShadow: '0 0 12px 2px #fff8, 0 2px 24px #000a',
-              fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
-            }}
-            autoFocus
-          />
+          <form className="flex flex-col gap-4 w-full items-center" autoComplete="off">
+            <div className="flex flex-row gap-2 w-full justify-center items-center">
+              <input
+                type="text"
+                placeholder="App..."
+                className="w-[140px] max-w-full px-5 py-3 text-lg bg-black/60 text-white border-2 border-white rounded-xl outline-none focus:border-white focus:ring-2 focus:ring-white/80 shadow-lg transition-all duration-200"
+                style={{
+                  boxShadow: '0 0 12px 2px #fff8, 0 2px 24px #000a',
+                  fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+                }}
+              />
+              <input
+                type="text"
+                placeholder="Type your intention..."
+                className="w-[200px] max-w-full px-5 py-3 text-lg bg-black/60 text-white border-2 border-white rounded-xl outline-none focus:border-white focus:ring-2 focus:ring-white/80 shadow-lg transition-all duration-200"
+                style={{
+                  boxShadow: '0 0 12px 2px #fff8, 0 2px 24px #000a',
+                  fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+                }}
+                autoFocus
+              />
+              <span
+                tabIndex={0}
+                role="button"
+                className="flex items-center justify-center h-[48px] w-[48px] cursor-pointer select-none group"
+                style={{}}
+              >
+                <svg
+                  width="28" height="28" viewBox="0 0 24 24" fill="none"
+                  stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+                  className="transition-all duration-150 group-hover:scale-110 group-active:scale-95 group-hover:drop-shadow-[0_0_8px_white]"
+                >
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                  <polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </span>
+            </div>
+          </form>
         </div>
       </div>
     </>
