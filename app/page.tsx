@@ -1,7 +1,35 @@
+"use client";
+import React, { useState } from "react";
+import { supabase } from "../lib/supabaseClient";
+
 export default function Home() {
-    // Example: how to use Supabase client
-    // import { supabase } from '../lib/supabaseClient';
-    // const { data, error } = await supabase.from('your_table').select('*');
+  const [app, setApp] = useState("");
+  const [intention, setIntention] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    setSuccess(false);
+    const { error } = await supabase.from("intention").insert([
+      {
+        app,
+        intention,
+        created_at: new Date().toISOString(),
+      },
+    ]);
+    setLoading(false);
+    if (error) {
+      setError(error.message);
+    } else {
+      setSuccess(true);
+      setApp("");
+      setIntention("");
+    }
+  }
   return (
     <>
       <style>{`
@@ -82,32 +110,39 @@ export default function Home() {
           >
             What is your intention?
           </div>
-          <form className="flex flex-col gap-4 w-full items-center" autoComplete="off">
+          <form className="flex flex-col gap-4 w-full items-center" autoComplete="off" onSubmit={handleSubmit}>
             <div className="flex flex-row gap-2 w-full justify-center items-center">
               <input
                 type="text"
                 placeholder="App..."
-                className="w-[60px] max-w-full px-5 py-3 text-lg bg-black/60 text-white border-2 border-white rounded-xl outline-none focus:border-white focus:ring-2 focus:ring-white/80 shadow-lg transition-all duration-200"
+                className="w-15 max-w-full px-5 py-3 text-lg bg-black/60 text-white border-2 border-white rounded-xl outline-none focus:border-white focus:ring-2 focus:ring-white/80 shadow-lg transition-all duration-200"
                 style={{
                   boxShadow: '0 0 12px 2px #fff8, 0 2px 24px #000a',
                   fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
                 }}
+                value={app}
+                onChange={e => setApp(e.target.value)}
+                disabled={loading}
               />
               <input
                 type="text"
                 placeholder="Type your intention..."
-                className="w-[200px] max-w-full px-5 py-3 text-lg bg-black/60 text-white border-2 border-white rounded-xl outline-none focus:border-white focus:ring-2 focus:ring-white/80 shadow-lg transition-all duration-200"
+                className="w-50 max-w-full px-5 py-3 text-lg bg-black/60 text-white border-2 border-white rounded-xl outline-none focus:border-white focus:ring-2 focus:ring-white/80 shadow-lg transition-all duration-200"
                 style={{
                   boxShadow: '0 0 12px 2px #fff8, 0 2px 24px #000a',
                   fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
                 }}
+                value={intention}
+                onChange={e => setIntention(e.target.value)}
                 autoFocus
+                disabled={loading}
               />
-              <span
+              <button
+                type="submit"
                 tabIndex={0}
-                role="button"
-                className="flex items-center justify-center h-[48px] w-[48px] cursor-pointer select-none group"
-                style={{}}
+                className="flex items-center justify-center h-12 w-12 cursor-pointer select-none group bg-transparent border-none p-0"
+                style={{ outline: 'none', background: 'none' }}
+                disabled={loading}
               >
                 <svg
                   width="28" height="28" viewBox="0 0 24 24" fill="none"
@@ -117,8 +152,10 @@ export default function Home() {
                   <line x1="5" y1="12" x2="19" y2="12"/>
                   <polyline points="12 5 19 12 12 19"/>
                 </svg>
-              </span>
+              </button>
             </div>
+            {error && <div className="text-red-400 text-sm mt-2">{error}</div>}
+            {success && <div className="text-green-400 text-sm mt-2">Saved!</div>}
           </form>
         </div>
       </div>
