@@ -87,7 +87,7 @@ export default function Home() {
               <input
                 type="text"
                 placeholder="App..."
-                className="w-[140px] max-w-full px-5 py-3 text-lg bg-black/60 text-white border-2 border-white rounded-xl outline-none focus:border-white focus:ring-2 focus:ring-white/80 shadow-lg transition-all duration-200"
+                className="w-[60px] max-w-full px-5 py-3 text-lg bg-black/60 text-white border-2 border-white rounded-xl outline-none focus:border-white focus:ring-2 focus:ring-white/80 shadow-lg transition-all duration-200"
                 style={{
                   boxShadow: '0 0 12px 2px #fff8, 0 2px 24px #000a',
                   fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
